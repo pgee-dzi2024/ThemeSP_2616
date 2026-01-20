@@ -1,0 +1,22 @@
+import asyncio
+import os
+from bleak import BleakScanner
+
+RSSI_THRESHOLD = -90  # праг за отдалечаване
+DEVICE_NAME = "ArduinoToken"  # името на Bluetooth устройството
+
+async def monitor_rssi():
+    while True:
+        devices = await BleakScanner.discover(timeout=2.0)
+
+        for device in devices:
+            if device.name == DEVICE_NAME:
+                print(f"RSSI: {device.rssi} dBm")
+
+                if device.rssi < RSSI_THRESHOLD:
+                    print("Ученикът се отдалечи -> Заключване")
+                    os.system("rundll32.exe user32.dll,LockWorkStation")
+
+        await asyncio.sleep(3)
+
+asyncio.run(monitor_rssi())
