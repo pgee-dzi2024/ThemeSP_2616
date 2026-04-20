@@ -34,7 +34,6 @@ async def run_scanner():
         await scanner.stop()
         print("\nСканирането е спряно.")
 
-
 if __name__ == "__main__":
     try:
         # Стартиране на асинхронния цикъл
