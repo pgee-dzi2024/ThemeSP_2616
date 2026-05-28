@@ -75,6 +75,7 @@ async def main():
         while True:
             await asyncio.sleep(1)
             time_since_last_seen = time.time() - last_seen_time
+            print(f"Токенът е видян последно преди {time_since_last_seen:.1f} сек. Средната сила на сигнала е {sum(rssi_history) / MA_WINDOW_SIZE} dBm.")
 
             if time_since_last_seen > TIMEOUT_SECONDS and not is_locked:
                 logging.warning(f"Токенът е изгубен за повече от {TIMEOUT_SECONDS} сек!")
